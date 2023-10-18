@@ -48,6 +48,24 @@ async function run() {
       res.send(result)
     })
 
+    app.put('/food/:id',async(req,res)=>{
+      const id=req.params.id;
+      const filter={_id:new ObjectId(id)};
+      const options={upsert:true};
+      const updatedFood=req.body;
+      const food={
+        name:updatedFood.name,
+        brandName:updatedFood.brandName,
+        foodType:updatedFood.foodType,
+        price:updatedFood.price,
+        description:updatedFood.des,
+        rating:updatedFood.rating,
+        photo:updatedFood.photo
+      }
+      const result=await foodCollection.updateOne(filter,food,options);
+      res.send(result);
+    })
+
     app.post('/food', async(req,res)=>{
         const newFood=req.body;
         
