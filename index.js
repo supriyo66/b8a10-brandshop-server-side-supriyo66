@@ -14,6 +14,7 @@ app.use(express.json());
 
 
 
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.r4tqjz5.mongodb.net/?retryWrites=true&w=majority`;
 console.log(uri)
 
@@ -33,6 +34,13 @@ async function run() {
 
     const foodCollection = client.db("foodDB").collection("food")
 
+
+    app.get('/food',async(req,res)=>{
+      const cursor=foodCollection.find();
+      const result=await cursor.toArray();
+      res.send(result);
+    })
+
     app.post('/food', async(req,res)=>{
         const newFood=req.body;
         
@@ -47,7 +55,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
