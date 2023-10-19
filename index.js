@@ -62,8 +62,8 @@ async function run() {
         rating:updatedFood.rating,
         photo:updatedFood.photo
       }
-      const result=await foodCollection.updateOne(filter,food,options);
-      res.send(result);
+      // const result=await foodCollection.updateOne(filter,food,options);
+      // res.send(result);
     })
 
     app.post('/food', async(req,res)=>{
